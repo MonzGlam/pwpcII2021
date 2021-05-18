@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', author: 'Steve Jobs', appName: 'web browser' });
+  res.render('index', { title: 'Express', author: 'Steve Jobs', appName: 'web browser', company:'Awsome Software' });
 });
 
 /*Agregando nueva ruta */
