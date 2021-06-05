@@ -7,6 +7,9 @@ import logger from 'morgan';
 import indexRouter from '@s-routes/index';
 import usersRouter from '@s-routes/users';
 
+//importting configurations
+import configTemplateEngine from '<@s-config/template-engine'
+
 // Webpack modules
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -33,13 +36,13 @@ if (env === 'development'){
   //timeout=1000: Tiempo de espera entre recarga y recarga de la pagina
   webpackDevConfig.entry = [
     'webpack-hot-middleware/client?reload=true&timeout=1000', 
-    webpackConfig.entry
+    webpackDevConfig.entry
     ];
   //agregamos plugin
   webpackDevConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
 
   //crear el complilador de webpack
-  const compiler = webpack(webpackDevConfig;
+  const compiler = webpack(webpackDevConfig);
 
   //agregamos el middleware a la cadena de middlewares
   //de nuestra aplicacion 
@@ -53,8 +56,7 @@ if (env === 'development'){
 }
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+configTemplateEngine(app);
 
 app.use(logger('dev'));
 app.use(express.json());
