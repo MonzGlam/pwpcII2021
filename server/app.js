@@ -3,13 +3,13 @@ import express from  'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
-import winston from 'winston';
+import winston from '@server/config/winston';
 
 import indexRouter from '@s-routes/index';
 import usersRouter from '@s-routes/users';
 
 //importting configurations
-import configTemplateEngine from '<@s-config/template-engine'
+import configTemplateEngine from '@s-config/template-engine';
 
 // Webpack modules
 import webpack from 'webpack';
@@ -59,7 +59,7 @@ if (env === 'development'){
 // view engine setup
 configTemplateEngine(app);
 
-app.use(morgan('combined', { steam : winston.stream }));
+app.use(morgan('dev', { steam : winston.stream }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -70,6 +70,9 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res)=>{
+  //log 
+  winston.error(`Code: 404, Mesage: Page not found, URL: ${req.originalUrl}, Method: ${req.
+    method} `); 
   next(createError(404));
 });
 
@@ -79,9 +82,17 @@ app.use((err, req, res, next)=>{
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+  //loggeando con Winston
+  winston.error(
+    `status: ${err.status || 500}, Message: ${err.message}, Method: ${
+      req.method
+    }, IP:${req.ip}`
+    );
 
-module.exports = app;
+    //render the error page
+    res.status(err.status || 500);
+    res.render('error');
+  });
+  
+  module.exports = app;
+  

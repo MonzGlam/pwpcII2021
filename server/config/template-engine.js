@@ -1,10 +1,10 @@
-import ExpHbs from 'express-handlebars';
+import expHbs from 'express-handlebars';
 import path from 'path';
 
 //Exportando un funcion de configuracion
 export default (app) => {
     //1.- Registrar el motor de plantillas 
-    app.engine('hbs', exphbs({
+    app.engine('hbs', expHbs({
         extname: '.hbs',
         defaultLayout: 'main',
     }));

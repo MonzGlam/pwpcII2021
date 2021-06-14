@@ -64,7 +64,7 @@ const options = {
 };
 
 //creando la instancia del registrador o logguer
-const logger = winston.CreateLogger({
+const logger = winston.createLogger({
     transports: [
         new winston.transports.File(options.infoFile),
         new winston.transports.File(options.warnFile),
