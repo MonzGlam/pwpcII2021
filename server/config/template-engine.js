@@ -1,5 +1,5 @@
 import expHbs from 'express-handlebars';
-import path from 'path';
+const path = require('path');
 
 //Exportando un funcion de configuracion
 export default (app) => {

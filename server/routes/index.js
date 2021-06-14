@@ -1,16 +1,11 @@
-var express = require('express');
-var router = express.Router();
+
+import { Router } from 'express';
+//Importando el router de home
+import homeRouter from './home';
+
+const router = new Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express', author: 'Steve Jobs', appName: 'web browser', company:'Awsome Software' });
-});
+router.use('/', homeRouter);
 
-/*Agregando nueva ruta */
- router.get('/greeting', function(req, res, next){
-   res.send('Holaaaaaa, estoy en Node JS')
-  })
- 
-
- 
 module.exports = router;
